@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import { v4 as uuid } from 'uuid';
 import './App.css';
+import { useState } from 'react';
 
-function App() {
+
+
+export default function App() {
+
+  const [count, setCount] = useState(0);
+  const [ban, setBan] = useState(false);
+  const[inputText, setInputText] = useState('');
+
+  function changeInput(event){
+      setInputText(event.target.value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div className='App'>
+      <div>
+        {!ban && <button onClick={() => setBan(!ban)} >Забанить</button>}
+      </div>
+      <div>
+        {ban && <button onClick={() => setBan(!ban)} >Разбанить</button>}
+      </div>
 
-export default App;
+      <div>
+        <p>{count}</p>
+        <button onClick={() => setCount(count + 1)}>+</button>
+        <button onClick={() => setCount(count - 1)}>-</button>
+      </div>
+
+      <div>
+        <input value={inputText}  onChange={changeInput}/>
+      </div>
+
+    </div>
+  )
+} 
